@@ -33,7 +33,7 @@ class Category(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('post:post_list_by_category', args=[self.slug])
+        return reverse('blog:post_list_by_category', args=[self.slug])
 
 
 class TagModel(models.Model):
@@ -95,10 +95,10 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = self._get_slug()
-        super(post, self).save(*args, **kwargs)
+        super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('post:post_detail', args=[self.slug, self.id])
+        return reverse('blog:post_detail', args=[self.slug, self.id])
 
 
 class Comment(models.Model):

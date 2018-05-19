@@ -3,6 +3,30 @@
 {% load staticfiles %}
 {% block content%}
 {% block post %}
-
+<div class="title"><h3><small>카테고리</small></h3></div>
+<div class="row">
+<!--div class="col-lg-6 col-md-8"-->
+    <ul class="nav nav-pills nav-pills-icons" role="tablist">
+        {% comment %}color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"{% endcomment %}
+        <li class="nav-item">
+            <a class="nav-link 
+            {% if not category %}
+                active
+            {% endif %}" 
+            href="{% url 'blog:post_list' %}" role="tab" data-toggle="tab">
+            <i class="material-icons">dashboard</i>All</a>
+        </li>
+        {% for category in categories %}
+        <li class="nav-item">
+            <a class="nav-link 
+            {% if category.slug == category.slug %}
+                active
+            {% endif %}" 
+            href="{{ category.get_absolute_url }}" role="tab" data-toggle="tab">
+            <i class="material-icons">list</i>
+            {{ category.name }}</a>
+        </li>
+        {% endfor %}
+        </ul>
 {% endblock post %}
 {% endblock content %}

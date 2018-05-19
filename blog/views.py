@@ -32,6 +32,11 @@ def post_list(request, category_slug=None):
     posts = Post.objects.all()
     posts = posts.order_by('created')
 
+    # 검색 조건이 있으면 제목에서 해당 내용을 찾는다.
+    q = request.GET.get('q', '')
+    if q:
+        posts = posts.filter(title__icontains=q)
+
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         posts = posts.filter(category=category)
@@ -41,7 +46,8 @@ def post_list(request, category_slug=None):
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-    return render(request, 'blog/post_list.html', {'category':category, 'categories':categories, 'blog':posts})
+
+    return render(request, 'blog/post_list.html', {'category':category, 'categories':categories, 'posts':posts})
 
 
 def post_detail(request, slug, id):
@@ -53,7 +59,7 @@ def post_detail(request, slug, id):
     def get_next_post(self):
         return self.get_next_by_updated()
 
-    return render(request, 'blog/post_detail.html', {'blog': post})
+    return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def post_create(request):
@@ -84,7 +90,7 @@ def post_edit(request, slug, id):
             post.author = request.user
             post.updated = timezone.now()
             post.save()
-            return redirect('post_detail', post.slug, post.id)
+            return redirect('blog:post_detail', post.slug, post.id)
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})

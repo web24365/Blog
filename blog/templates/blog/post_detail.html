@@ -8,7 +8,7 @@
             {{ post.published }}
         </div>
     {% endif %}
-    <a class="btn btn-default" href="{% url 'post_edit' slug=post.slug, id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'blog:post_edit' slug=post.slug id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content |linebreaksbr }}</p>
 </div>
