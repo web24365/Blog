@@ -1,0 +1,46 @@
+{% extends 'blog/post_base.html' %}
+{% load staticfiles %}
+
+{% block post %}
+<!--------------- Category --------------- -->
+<div class="section section-white">
+    <div class="container">
+<!--                 nav pills -->
+        <div id="navigation-pills">
+            <div class="title"><h3>글목록</h3></div><hr />
+            <div class="title"><h3><small>카테고리</small></h3></div>
+            <div class="row">
+            <!--div class="col-lg-6 col-md-8"-->
+                <ul class="nav nav-pills nav-pills-icons" role="tablist">
+                    {% comment %}color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"{% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{% url 'blog:post_list' %}" role="tab" data-toggle="tab">
+                            <i class="material-icons">dashboard</i>All</a>
+                    </li>
+                    {% if category %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#{{ category.get_absoulte_url }}" role="tab" data-toggle="tab"><i class="material-icons">list</i>{{ category.name }}</a>
+                    </li>
+                    {% endif %}
+                    </ul>
+                <div class="tab-content tab-space">
+                    {% for post in posts %}
+                    <div class="tab-pane active" id="{{ category.get_absoulte_url }}">
+                        <div>
+                            <p>published: {{ post.published }}</p>
+                            <h1>
+                                <a href=" {% url 'post_detail' slug=post.slu pk=post.pk %}">{{ post.title }}</a>
+                            </h1>
+                            <p>{{ post.text|linebreaksbr }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
+
+{% endblock post %}

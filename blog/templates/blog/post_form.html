@@ -1,0 +1,24 @@
+{% extends 'blog/post_base.html' %}
+
+{% block post %}
+<form method='POST'>
+  {% csrf_token %}
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="category" />
+    <label class="mdl-textfield__label" for="category">분류</label>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" required id="id_title">
+    <label class="mdl-textfield__label" for="id_title">제목</label>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" required id="id_content">
+    <label class="mdl-textfield__label" for="id_content">본문</label>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="id_Tags" />
+    <label class="mdl-textfield__label" for="id_Tags">태그</label>
+  </div>
+  <button type="submit" class="save btn btn-default">Save</button>
+</form>
+{% endblock %}

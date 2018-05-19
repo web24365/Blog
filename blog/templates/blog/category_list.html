@@ -1,0 +1,10 @@
+{% extends 'blog/post_base.html' %}
+{% load staticfiles %}
+
+{% block post %}
+{% for category in categories %}
+    <div>
+        <h1>{{ category }}</h1>
+    </div>
+{% endfor %}
+{% endblock post %}
