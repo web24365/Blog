@@ -2,77 +2,19 @@
 {% load staticfiles %}
 
 {% block post %}
-<!--------------- Category --------------- -->
-<div class="section section-white">
-    <div class="container">
-<!--                 nav pills -->
-        <div id="navigation-pills">
-            <div class="title"><h3>글목록</h3></div><hr />
-            <form action="" method="get">
-                <input type="text" name="q" value="{{ q}}">
-                <input type="submit" value="검색">
-            </form>
-            <!-- <div class="title"><h3><small>카테고리</small></h3></div>
-            <div class="row">
-            <!--div class="col-lg-6 col-md-8"-->
-                <ul class="nav nav-pills nav-pills-icons" role="tablist">
-                    {% comment %}color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"{% endcomment %}
-                    <li class="nav-item">
-                        <a class="nav-link 
-                        {% if not category %}
-                            active
-                        {% endif %}" 
-                        href="{% url 'blog:post_list' %}" role="tab" data-toggle="tab">
-                        <i class="material-icons">dashboard</i>All</a>
-                    </li>
-                    {% for category in categories %}
-                    <li class="nav-item">
-                        <a class="nav-link 
-                        {% if category.slug == category.slug %}
-                            active
-                        {% endif %}" 
-                        href="{{ category.get_absolute_url }}" role="tab" data-toggle="tab">
-                        <i class="material-icons">list</i>
-                        {{ category.name }}</a>
-                    </li>
-                    {% endfor %}
-                    </ul> -->
-                    <!-- {% comment %} -->
-                    '''
-                     <a href="{% url 'blog:post_list' %}" class="list-group-item {% if not category %}active{% endif %}">All</a>
-                    {% for category in categories %}
-                    <a href="{{ category.get_absolute_url }}" class="list-group-item 
-                    {% if category.slug == category.slug %}
-                        active
-                    {% endif %}">
-                    {{ category.name }}
-                    </a>
-                    '''
-                    {% endfor %}>
-                    <!-- {% endcomment %} -->
-                <div class="tab-content tab-space">
-                    <div class="tab-pane active" 
-                        {% if not category %}
-                            id ="all" 
-                        {% else %}
-                            id="{{ category.name }}"
-                        {% endif %}>
-                    {% for post in posts %}
-                        <div>
-                            <p>update: {{ post.updated }}</p>
-                            <h1>
-                                <a href=" {% url 'blog:post_detail' slug=post.slug id=post.id %}">{{ post.title }}</a>
-                            </h1>
-                            <p>{{ post.text|linebreaksbr }}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+<div class="title">
+    <h3>글목록 {{ category.name }}</h3><hr>
+</div>
+{% for post in posts %}
+    <div>
+        <h1>
+            <a href=" {% url 'blog:post_detail' slug=post.slug id=post.id %}">{{ post.title }}</a>
+        </h1>
+        <p>{{ post.content|truncatewords:10 }}</p>
+        <p>update: {{ post.updated }}</p>
     </div>
 </div>
-
+{% endfor %}
 <a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
 
 {% endblock post %}
