@@ -12,4 +12,19 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content |linebreaksbr }}</p>
 </div>
+<div class="title">
+    <h3>Comments</h3>
+</div>
+<hr />
+<ul>
+    {% for comment in post.comment_set.all %}
+    <li>
+        {{ comment.content }}
+        <small>by {{ comment.author }}</small>
+        <small>at {{ comment.create }}</small>
+    </li>
+{% endfor %}
+</ul>
+<hr>
+<a href="{% url "blog:post_list" %}">글 목록</a>
 {% endblock post%}
