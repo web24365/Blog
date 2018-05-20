@@ -8,7 +8,16 @@
             <div class="title">
                 <h3>카테고리</h3>
             </div>
-
+            <div class="col-2">
+                <div class="list-group">
+                    <a href="/" class="list-group-item {% if not category %}active{% endif %}">All</a>
+                    {% for c in categories %}
+                        <a href="{{c.get_absolute_url}}" class="list-group-item {% if category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {{ category.slug }}
+            {{ category }}
             <nav class="navbar navbar-expand-lg bg-primary">
                 <div class="container">
                     <div class="navbar-translate">
@@ -18,17 +27,15 @@
                             <span class="navbar-toggler-icon"></span>
                             <span class="navbar-toggler-icon"></span>
                         </button>
-
                     </div>
-
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav">
-                            <li class="{% if not category %}active{% endif %} nav-item">
+                            <li class="nav-item {% if not category %}active{% endif %}">
                                 <a href="{% url 'blog:post_list' %}" class="nav-link">All</a>
                             </li>
-                            {% for category in categories %}
-                            <li class="{% if category.slug == category.slug %}active{% endif %} nav-item">
-                                <a href="{{ category.get_absolute_url }}" class="nav-link">{{ category.name }}</a>
+                            {% for c in categories %}
+                            <li class="nav-item {% if category.slug == c.slug %}active{% endif %} ">
+                                <a href="{{ c.get_absolute_url }}" class="nav-link">{{ c.name }}</a>
                             </li>
                             {% endfor %}
                             <!-- <li class="dropdown nav-item">
@@ -60,5 +67,17 @@
 {% block post %}
 
 {% endblock post %}
+<h3>Comments</h3>
+<hr />
+<ul>
+    {% for comment in post.comment_set.all %}
+    <li>
+        {{ comment.content }}
+        <small>by {{ comment.author }}</small>
+        <small>at {{ comment.create }}</small>
+    </li>
+{% endfor %}
+</ul>
+
 </div>
 {% endblock content %}

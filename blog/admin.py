@@ -28,3 +28,8 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(TagModel)
 class TagModelAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
