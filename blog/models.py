@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 
 # Create your models here.
@@ -45,10 +46,13 @@ class Tag(models.Model):
 
 class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='posts')
-    author = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True)
+    # 'auth.User' 엡이름.모델
+    # setting.AUTH_USER_MODEL: 사용자 인증에 사용되는 User모델이 변경됐을 경우 자동 대응
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100)
     content = models.TextField()
-    # TagModel 클래스로 지정 or 'TagModel' 문자열 형태로 걸 수 있다 그러면 Tag모델이 post 뒤에 있어도 사용할 수 있다.
+    # Tag 클래스로 지정 or 'Tag' 문자열 형태로 걸 수 있다 그러면 Tag모델이 post 뒤에 있어도 사용할 수 있다.
+    # manytomany일 경우 blank option을 선호
     Tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
     Comments = models.PositiveSmallIntegerField(default=0, null=True)

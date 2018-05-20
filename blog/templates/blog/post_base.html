@@ -57,17 +57,6 @@
 {% block post %}
 
 {% endblock post %}
-<h3>Comments</h3>
-<hr />
-<ul>
-    {% for comment in post.comment_set.all %}
-    <li>
-        {{ comment.content }}
-        <small>by {{ comment.author }}</small>
-        <small>at {{ comment.create }}</small>
-    </li>
-{% endfor %}
-</ul>
 
 </div>
 {% endblock content %}

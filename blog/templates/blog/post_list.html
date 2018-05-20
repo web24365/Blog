@@ -13,8 +13,19 @@
         <p>{{ post.content|truncatewords:10 }}</p>
         <p>update: {{ post.updated }}</p>
     </div>
-</div>
 {% endfor %}
 <a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
-
+<div class="title">
+    <h3>Comments</h3>
+</div>
+<hr />
+<ul>
+    {% for comment in post.comment_set.all %}
+    <li>
+        {{ comment.content }}
+        <small>by {{ comment.author }}</small>
+        <small>at {{ comment.create }}</small>
+    </li>
+{% endfor %}
+</ul>
 {% endblock post %}
