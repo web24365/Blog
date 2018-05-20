@@ -3,22 +3,40 @@
 {% block post %}
 <form method='POST'>
   {% csrf_token %}
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="category" />
-    <label class="mdl-textfield__label" for="category">분류</label>
-  </div>
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" required id="id_title">
-    <label class="mdl-textfield__label" for="id_title">제목</label>
-  </div>
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" required id="id_content">
-    <label class="mdl-textfield__label" for="id_content">본문</label>
-  </div>
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="id_Tags" />
-    <label class="mdl-textfield__label" for="id_Tags">태그</label>
-  </div>
-  <button type="submit" class="save btn btn-default">Save</button>
+  <table>  {{ form.as_table }}
+    </table>
+  <!--div class="row"-->
+  <div class="justify-content-center">
+      <<div class="col-sm-6">
+          <div class="form-group">
+             <label for="exampleInput1" class="bmd-label-floating">분류</label>
+             <input type="text" class="form-control" id="category">
+             <span class="bmd-help">카테고리를 정하세요</span>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="form-group">
+             <label for="exampleInput1" class="bmd-label-floating">제목</label>
+             <input type="text" class="form-control" id="id_title">
+             <span class="bmd-help">제목은 3글자 이상 적어주세요</span>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="form-group">
+             <label for="exampleInput1" class="bmd-label-floating">내용</label>
+             <textarea class="form-control" cols="40" rows="10" id="id_content"></textarea>
+             <span class="bmd-help">글 내용</span>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="form-group">
+             <label for="exampleInput1" class="bmd-label-floating">태그</label>
+             <input type="text" class="form-control" id="id_Tags">
+             <span class="bmd-help">공백없이 #으로 구분</span>
+          </div>
+      </div>
+      <button type="submit" class="save btn btn-default">Save</button>
+    </div>
+    <input type="submit">
 </form>
 {% endblock %}

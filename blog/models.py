@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
-
+import re
 
 # Create your models here.
 
@@ -83,7 +83,7 @@ class Post(models.Model):
         return slugify
 
     def save_tags(self):
-        if not tags:
+        if not tag:
             return 
         
         tags_list = []

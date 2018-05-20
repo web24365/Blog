@@ -63,7 +63,7 @@ def post_detail(request, slug, id):
 
 
 def post_create(request):
-    # POST 요청에 의한 입력 값 검증
+    # POST 요청에 의해 서버로 입력 값을 전송하기 전에 검증
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         # 입력 값 검증
@@ -71,12 +71,16 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.created = timezone.now()
+            # print(form.cleaned_data)
+            # post = Post(**form.cleaned_data)
             post.save()
-            post.tag_save()
+            post.save_tags()
             messages.info(request, '새 글이 등록되었습니다.')
             return redirect('blog:post_detail', post.slug, post.id)
+        else:
+            form.errors
     else:
-        # 글을 새로 생성하려면 폼을 띄워주고, 입력 값 검증에 문제 발생시 form.error에 오류 정보를 저장.
+        # 글을 새로 생성하려면 폼을 띄워주고(GET), 입력 값 검증에 문제 발생시 form.error에 오류 정보를 저장.
         form = PostForm()
     return render(request, 'blog/post_form.html', {'form': form})
 
