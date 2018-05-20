@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Category, Post, TagModel, Comment
+from .models import Category, Post, Tag, Comment
 
 # Register your models here.
 
@@ -25,8 +25,8 @@ class PostAdmin(admin.ModelAdmin):
     form = PostForm
 
 
-@admin.register(TagModel)
-class TagModelAdmin(admin.ModelAdmin):
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 

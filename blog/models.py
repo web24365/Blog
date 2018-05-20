@@ -36,7 +36,7 @@ class Category(models.Model):
         return reverse('blog:post_list_by_category', args=[self.slug])
 
 
-class TagModel(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -48,7 +48,8 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100)
     content = models.TextField()
-    Tags = models.ManyToManyField(TagModel, blank=True)
+    # TagModel 클래스로 지정 or 'TagModel' 문자열 형태로 걸 수 있다 그러면 Tag모델이 post 뒤에 있어도 사용할 수 있다.
+    Tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
     Comments = models.PositiveSmallIntegerField(default=0, null=True)
     created = models.DateTimeField(auto_now_add=True)
