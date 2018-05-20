@@ -2,6 +2,13 @@
 {% load staticfiles %}
 
 {% block post %}
+<div class="jumbotron">
+    <h1>SafeWeb<sup><small>powered by Django</small></sup></h1>
+    <p>안전한 인터넷 사용을 위한 기술들</p>
+    <p>
+        <a class="btn btn-lg btn-primary" href="https://www.isecurekr.com">아이시큐어 &raquo;</a>
+    </p>
+</div>
 <div class="row">
     <div class="col-md-6">
         <div class="title">
@@ -66,5 +73,17 @@
     </div>
 {% endfor %}
 <a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
-
+<div class="title">
+    <h3>Comments</h3>
+</div>
+<hr />
+<ul>
+    {% for comment in post.comment_set.all %}
+    <li>
+        {{ comment.content }}
+        <small>by {{ comment.author }}</small>
+        <small>at {{ comment.create }}</small>
+    </li>
+{% endfor %}
+</ul>
 {% endblock post %}

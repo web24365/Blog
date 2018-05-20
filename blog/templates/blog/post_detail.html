@@ -2,6 +2,11 @@
 {% load staticfiles %}
 
 {% block post %}
+<style>
+    p {
+        font-size: 19px;
+    }
+</style>
 <div class="post">
     {% if post.published %}
         <div class="date">
@@ -26,5 +31,5 @@
 {% endfor %}
 </ul>
 <hr>
-<a href="{% url "blog:post_list" %}">글 목록</a>
+<a href="{% url "blog:post_list" %}" class='btn btn-primary'>글 목록</a>
 {% endblock post%}

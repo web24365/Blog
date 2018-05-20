@@ -25,7 +25,7 @@
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-translate">
-      <a class="navbar-brand" href="/blog">SafeWeb</a>
+      <a class="navbar-brand" href="{% url 'root' %}">SafeWeb</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         <span class="navbar-toggler-icon"></span>
@@ -84,12 +84,12 @@
         <nav class="float-left">
           <ul>
               <li>
-                  <a href="https://www.creative-tim.com">
+                  <a href="{% url 'root' %}">
                       SafeWeb
                   </a>
               </li>
               <li>
-                  <a href="https://presentation.creative-tim.com">
+                  <a href="{% url 'root' %}">
                       About Us
                   </a>
               </li>
