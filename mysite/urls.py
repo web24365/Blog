@@ -18,10 +18,19 @@ from django.urls import path
 from django.conf.urls import include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
+from django.shortcuts import redirect
+from django.views.generic import RedirectView
+
+# def root(request):
+#    return redirect('blog:post_list')
 
 
 urlpatterns = [
+    # path('', root, name='root'),
+    # path('', lambda r: redirect('blog:post_list'), name='root'),
+    path('', RedirectView.as_view(pattern_name='blog:post_list')),
     path('admin/', admin.site.urls),
+    # namespcae를 지정하면 항상 사용해야한다. 사용하지 않으면 error발생
     path('blog/', include('blog.urls', namespace='blog')),
 ]
 
