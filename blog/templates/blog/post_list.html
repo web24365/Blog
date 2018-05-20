@@ -9,12 +9,14 @@
         <a class="btn btn-lg btn-primary" href="https://www.isecurekr.com">아이시큐어 &raquo;</a>
     </p>
 </div>
+<div class="container">
+
 <div class="row">
     <div class="col-md-6">
         <div class="title">
             <h3>카테고리</h3>
         </div>
-        <nav class="navbar navbar-expand-lg bg-primary">
+        <nav class="navbar navbar-expand-lg bg-white">
             <div class="container">
                 <div class="navbar-translate">
                     <a class="navbar-brand"></a>
@@ -69,7 +71,7 @@
             <a href=" {% url 'blog:post_detail' slug=post.slug id=post.id %}">{{ post.title }}</a>
         </h1>
         <p>{{ post.content|truncatewords:10 }}</p>
-        <p>update: {{ post.updated }}</p>
+        <p>update: {{ post.updated|date:"D d M Y" }}</p>
     </div>
 {% endfor %}
 <a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
@@ -86,4 +88,6 @@
     </li>
 {% endfor %}
 </ul>
+</div>
+
 {% endblock post %}
