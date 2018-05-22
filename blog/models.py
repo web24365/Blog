@@ -123,7 +123,6 @@ class Comment(models.Model):
     is_public = models.BooleanField(default=False)
     ip = models.GenericIPAddressField(null=True)
 
-
     def approve(self):
         self.approved_comment = True
         self.save()

@@ -12,7 +12,7 @@
 <div class="container">
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="title">
             <h3>카테고리</h3>
         </div>
@@ -50,21 +50,23 @@
                             </div>
                         </li> -->
                     </ul>
-                    <form class="form-inline ml-auto" action="" method="get">
-                        <div class="form-group has-white">
-                            <input type="text" class="form-control" name="q" value="{{ q }}">
-                            <button type="submit" class="btn btn-white btn-raised btn-fab btn-round">
-                                <i class="material-icons">search</i>
-                            </button>
-                        </form>
                 </div>
             </div>
         </nav>
     </div>
 </div>
-<div class="title">
-    <h3>글목록 {{ category.name }}</h3><hr>
-</div>
+<a href="{% url 'blog:post_create' %}" class="pull-right"><i class="material-icons">add</i>새글쓰기</a>
+
+    <form class="form-inline" action="" method="get">
+        <div class=" has-black">
+            <input type="text" class="form-control" name="q" value="{{ q }}" />
+            <button type="submit" class="btn btn-white btn-raised btn-fab btn-round" />
+                <i class="material-icons">search</i>
+            </button>
+        </div>
+    </form>
+
+
 {% for post in posts %}
     <div>
         <h1>
@@ -74,7 +76,7 @@
         <p>update: {{ post.updated|date:"D d M Y" }}</p>
     </div>
 {% endfor %}
-<a href="{% url 'blog:post_create' %}" ><span class="glyphicon glyphicon-plus">create</span></a>
+
 <div class="title">
     <h3>Comments</h3>
 </div>

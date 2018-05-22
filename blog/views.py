@@ -106,7 +106,7 @@ def comment_create(request):
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
         if is_valid(form):
-            form.save(commit=False)
+            comment = form.save(commit=False)
             comment.ip = request.META['REMOTE_ADDR']
             comment = Comment(**form.cleaned_data)
             comment.save()
@@ -117,4 +117,7 @@ def comment_create(request):
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form': form})
+
+
+
 
