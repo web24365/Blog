@@ -57,14 +57,14 @@
 </div>
 <a href="{% url 'blog:post_create' %}" class="pull-right"><i class="material-icons">add</i>새글쓰기</a>
 
-    <form class="form-inline" action="" method="get">
-        <div class=" has-black">
-            <input type="text" class="form-control" name="q" value="{{ q }}" />
-            <button type="submit" class="btn btn-white btn-raised btn-fab btn-round" />
-                <i class="material-icons">search</i>
-            </button>
-        </div>
-    </form>
+<form class="form-inline" action="" method="get">
+    <div class=" has-black">
+        <input type="text" class="form-control" name="q" value="{{ q }}" />
+        <button type="submit" class="btn btn-white btn-raised btn-fab btn-round" />
+            <i class="material-icons">search</i>
+        </button>
+    </div>
+</form>
 
 
 {% for post in posts %}
@@ -78,10 +78,11 @@
 {% endfor %}
 
 <div class="title">
-    <h3>Comments</h3>
+    <h3>댓글</h3>
 </div>
 <hr />
 <ul>
+    {{ comment }}
     {% for comment in post.comment_set.all %}
     <li>
         {{ comment.content }}

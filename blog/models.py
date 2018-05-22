@@ -114,10 +114,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey('post', on_delete=models.CASCADE, related_name='comments', null=False)
-    author = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True)
-    password = models.CharField(max_length=32, null=False)
-    content = models.TextField(max_length=2000, null=False)
+    # Post : Comment = 1:N
+    post = models.ForeignKey('post', on_delete=models.CASCADE, null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    message = models.TextField(max_length=2000, null=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=False)
@@ -128,4 +128,4 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        self.content
+        return self.message

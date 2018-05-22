@@ -17,7 +17,6 @@ class PostForm(forms.ModelForm):
     # content = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     # Tags = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     
-
     class Meta:
         model = Post
         fields = ['category', 'title', 'content']
@@ -26,4 +25,4 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['message']

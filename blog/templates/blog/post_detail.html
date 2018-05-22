@@ -7,30 +7,35 @@
         font-size: 19px;
     }
 </style>
-<div class="post">
-    {% if post.published %}
-        <div class="date">
-            {{ post.published }}
-        </div>
-    {% endif %}
-    <a class="btn btn-default" href="{% url 'blog:post_edit' slug=post.slug id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content |linebreaksbr }}</p>
+<div class="col-12">
+    <div class="post">
+        {% if post.published %}
+            <div class="date">
+                {{ post.published }}
+            </div>
+        {% endif %}
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content |linebreaksbr }}</p>
+    </div>
+    <hr>
+    <div class="title">
+        <h3>댓글</h3>
+    </div>
+    <a href="{% url 'blog:comment_create' post.slug post.id %}" class="pull-right">
+        <i class="material-icons">add</i>댓글 추가
+    </a>
+    <hr />
+    <ul>
+        {% for comment in post.comment_set.all %}
+        <li> 
+            {{ comment.message }}
+            <small>by {{ comment.author }}</small>
+            <small>at {{ comment.created }}</small>
+        </li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <a href="{% url "blog:post_list" %}" class='btn btn-primary'>글 목록</a>
+    <a href="{% url "blog:post_edit"  post.slug post.id %}" class='btn btn-default'>수정</a>
 </div>
-<div class="title">
-    <h3>Comments</h3>
-</div>
-<hr />
-<ul>
-    {% for comment in post.comment_set.all %}
-    <li>
-        {{ comment.content }}
-        <small>by {{ comment.author }}</small>
-        <small>at {{ comment.create }}</small>
-    </li>
-{% endfor %}
-</ul>
-<hr>
-<a href="{% url "blog:post_list" %}" class='btn btn-primary'>글 목록</a>
-<a href="{% url "blog:post_edit"  post.slug post.id%}" class='btn btn-default'>수정</a>
 {% endblock post%}

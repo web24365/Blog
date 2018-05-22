@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
@@ -62,7 +63,7 @@ def post_detail(request, slug, id):
 
     return render(request, 'blog/post_detail.html', {'post': post})
 
-
+@login_required
 def post_create(request):
     # POST 요청에 의해 서버로 입력 값을 전송하기 전에 검증
     if request.method == "POST":
@@ -86,7 +87,7 @@ def post_create(request):
         form = PostForm()
     return render(request, 'blog/post_form.html', {'form': form})
 
-
+@login_required
 def post_edit(request, slug, id):
     post = get_object_or_404(Post, slug=slug, id=id)
     if request.method == "POST":
@@ -102,16 +103,20 @@ def post_edit(request, slug, id):
     return render(request, 'blog/post_form.html', {'form': form})
 
 
-def comment_create(request):
+@login_required
+def comment_create(request, slug, id):
+    post = get_object_or_404(Post, slug=slug, id=id)
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
-        if is_valid(form):
+        if form.is_valid():
             comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
             comment.ip = request.META['REMOTE_ADDR']
-            comment = Comment(**form.cleaned_data)
+            #comment = Comment(**form.cleaned_data)
             comment.save()
             messages.info(request, '새 글이 등록되었습니다.')
-            return render(request, 'blog/blog_detail.html', post.slug, post.id)
+            return redirect('blog:post_detail', post.slug, post.id)
         else:
             form.errors()
     else:
