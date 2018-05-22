@@ -99,7 +99,7 @@ def post_edit(request, slug, id):
             return redirect('blog:post_detail', post.slug, post.id)
     else:
         form = PostForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
+    return render(request, 'blog/post_form.html', {'form': form})
 
 
 def comment_create(request):
