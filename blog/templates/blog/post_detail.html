@@ -32,7 +32,10 @@
             {{ comment.message }}
             <small>by {{ comment.author }}</small>
             <small>at {{ comment.created }}</small>
+            {% if comment.author == request.user %}
             <a href="{% url "blog:comment_edit" post.slug post.id comment.id %}">수정</a>
+            <a href="{% url "blog:comment_delete" post.slug post.id comment.id %}" class="text-danger">삭제</a>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>

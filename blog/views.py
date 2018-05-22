@@ -139,3 +139,15 @@ def comment_edit(request, slug, id, comment_id):
         form = CommentForm(instance=comment)
     return render(request, 'blog/comment_form.html', {'form':form,})
 
+@login_required
+def comment_delete(request, slug, id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return redirect(comment.post)
+
+    if request.method == "POST":
+        comment.delete()
+        return redirect(comment.post)
+
+    return render(request, 'blog/comment_confirm_delete.html', {'comment':comment,})
+
