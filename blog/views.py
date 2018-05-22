@@ -123,6 +123,19 @@ def comment_create(request, slug, id):
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form': form})
 
+@login_required
+def comment_edit(request, slug, id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        #return redirect('blog:post_detail', slug, id)
+        return redirect(comment.post)
 
-
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            comment = form.save()
+            return redirect(comment.post)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'blog/comment_form.html', {'form':form,})
 

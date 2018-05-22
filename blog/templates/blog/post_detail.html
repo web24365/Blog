@@ -24,6 +24,7 @@
     <a href="{% url 'blog:comment_create' post.slug post.id %}" class="pull-right">
         <i class="material-icons">add</i>댓글 추가
     </a>
+    
     <hr />
     <ul>
         {% for comment in post.comment_set.all %}
@@ -31,6 +32,7 @@
             {{ comment.message }}
             <small>by {{ comment.author }}</small>
             <small>at {{ comment.created }}</small>
+            <a href="{% url "blog:comment_edit" post.slug post.id comment.id %}">수정</a>
         </li>
     {% endfor %}
     </ul>
