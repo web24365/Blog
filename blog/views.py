@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
+from django.contrib import messages
 from .models import *
 from .forms import *
 
@@ -16,6 +17,7 @@ def category_create(request):
     if request.method =='POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
+            category = Category(**form.cleaned_data)
             category.save()
             messages.info(request, '새 분류가 등록되었습니다.')
             return redirect('blog:category_list')
@@ -46,7 +48,6 @@ def post_list(request, category_slug=None):
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
-
     return render(request, 'blog/post_list.html', {'category':category, 'categories':categories, 'posts':posts})
 
 
@@ -71,10 +72,11 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.created = timezone.now()
-            # print(form.cleaned_data)
-            # post = Post(**form.cleaned_data)
+            post.ip = request.META['REMOTE_ADDR']
+            print(form.cleaned_data)
+            post = Post(**form.cleaned_data)
             post.save()
-            post.save_tags()
+            # post.save_tags()
             messages.info(request, '새 글이 등록되었습니다.')
             return redirect('blog:post_detail', post.slug, post.id)
         else:
@@ -99,4 +101,20 @@ def post_edit(request, slug, id):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
-# Create your views here.
+
+def comment_create(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if is_valid(form):
+            form.save(commit=False)
+            comment.ip = request.META['REMOTE_ADDR']
+            comment = Comment(**form.cleaned_data)
+            comment.save()
+            messages.info(request, '새 글이 등록되었습니다.')
+            return render(request, 'blog/blog_detail.html', post.slug, post.id)
+        else:
+            form.errors()
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment_form.html', {'form': form})
+
