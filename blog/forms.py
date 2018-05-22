@@ -16,17 +16,22 @@ class PostForm(forms.ModelForm):
     # title = forms.CharField(widget=forms.TextInput(validators=[min_length_3_validator]))
     # content = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     # Tags = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    content = forms.CharField(label='내용', widget=forms.TextInput(attrs={
+        'class': 'comment-form',
+        'size': '70px',
+        'placeholder': '댓글 달기...',
+        'maxlength': '400', }))
     
     class Meta:
         model = Post
         fields = ['category', 'title', 'content']
 
 class CommentForm(forms.ModelForm):
-    # content = forms.CharField(label='', widget=forms.TextInput(attrs={
-    #     'class': 'comment-form',
-    #     'size': '70px',
-    #     'placeholder': '댓글 달기...',
-    #     'maxlength': '40', }))
+    message = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'comment-form',
+        'size': '70px',
+        'placeholder': '댓글 달기...',
+        'maxlength': '40', }))
 
     class Meta:
         model = Comment
