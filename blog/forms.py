@@ -20,18 +20,15 @@ class PostForm(forms.ModelForm):
     #     super(PostForm, self).__init__(*args, **kwargs)
     #     self.fields['category'].widget.choices = Category.objects.all()
 
-    category = forms.ModelMultipleChoiceField(queryset=Category.objects.all().order_by('name'), widget=forms.Select(attrs={'class':'form-contrl',}))
+    category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'), widget=forms.Select(attrs={'class':'form-contrl',}))
         
-    title = forms.CharField(label='제목', widget=forms.TextInput(attrs={
+    title = forms.CharField(label='제목', help_text='제목을 적어주세요', widget=forms.TextInput(attrs={
         'class':'form-control',
-        'help_text': '',
     }))
-    content = forms.CharField(label='내용', widget=forms.Textarea(attrs={
-        'class': 'form-control',
-        'help_text': '100 characters max.',
+    content = forms.CharField(label='내용', help_text='100 characters max.', widget=forms.Textarea(attrs={
+        'class': 'form-control',        
         'rows': 5,
         'cols': 50,
-        'help_text': '글',
         'size': '70px',
         'placeholder': '', }))
     
