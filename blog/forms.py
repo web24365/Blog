@@ -20,7 +20,10 @@ class PostForm(forms.ModelForm):
     #     super(PostForm, self).__init__(*args, **kwargs)
     #     self.fields['category'].widget.choices = Category.objects.all()
 
-    category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'), widget=forms.Select(attrs={'class':'form-contrl',}))
+    category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'), widget=forms.Select(attrs={
+        'class':'btn dropdown-toggle bs-placeholder select-with-transition', 
+        'data-toggle':'dropdown',
+        'role': 'button',}))
         
     title = forms.CharField(label='제목', help_text='제목을 적어주세요', widget=forms.TextInput(attrs={
         'class':'form-control',
