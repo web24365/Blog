@@ -71,6 +71,16 @@
   <!-- /.container-->
 </nav>
 <!-- end inverse navbar -->
+{% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}"> {# 메세지 Level #}
+    [{{ message.tags }}]
+    {{ message.message }} {# 메세지 내용 #}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 <div class="page-content">
   <!-- Your content goes here -->
   <div class="main main-raised" style="margin: -10px 30px 0px;">
